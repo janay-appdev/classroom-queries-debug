@@ -1,9 +1,9 @@
 <div class="row mb-3">
   <div class="col-md-8 offset-md-2">
     <h1>
-      Course #<%= course.id %> details
+      Course <%= @the_course.id %> details
     </h1>
-
+    
     <div class="row mb-3">
       <div class="col">
         <a href="/courses">
@@ -11,53 +11,50 @@
         </a>
       </div>
     </div>
-
+   
     <dl>
       <dt>
         Title
       </dt>
       <dd>
-        <%= course.title %>
+        <%= @the_course.title %>
       </dd>
 
       <dt>
         Term offered
       </dt>
       <dd>
-        <%= course.term_offered %>
+        <%= @the_course.term_offered %>
       </dd>
 
       <dt>
-        Department
+        Department</a>
       </dt>
       <dd>
-        <% department = Department.where({ :id => course.department_id }).at(0) %>
-        <a href="/departments/<%= department.id %>"><%= department.name %></a>
+        <% department=Department.where({ :id => @the_course.department }).at(0) %>
+        <a href = "/departments/<%=department.id%>"><%=department.name%></a>
       </dd>
 
       <dt>
         Number of enrolled students
       </dt>
       <dd>
-        <%= Enrollment.where({ :course_id => course.id }).count %>
+        <%#= Enrollment.where({ :course_id => @the_course.id }).count%>
+        <%= @the_course.enrollments.count %>
       </dd>
     </dl>
   </div>
 </div>
 
 <hr>
-
-
-
 <h2>Roster</h2>
 <ul>
-  <% Enrollment.where({ :course_id => course.id }).each do |enrollment| %>
-    <% student = Student.where({ :id => enrollment.student_id }).at(0) %>
+  <% @the_course.enrollments.each do |enrollment| %>
     <li>
-      <a href="/students/<%= student.id %>">
-        <%= student.first_name %> <%= student.last_name %>
+      <a href="/students/<%= enrollment.student_id %>">
+        <%= enrollment.student.first_name %>
+        <%= enrollment.student.last_name %>
       </a>
     </li>
   <% end %>
 </ul>
-

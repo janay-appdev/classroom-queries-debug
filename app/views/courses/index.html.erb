@@ -16,46 +16,42 @@
         </th>
 
         <th>
-          Title
+        Title
+        </th>
+        <th>
+        Term offered
+        </th>
+        <th>
+        Department
         </th>
 
         <th>
-          Term offered
-        </th>
 
-        <th>
-          Department
-        </th>
-
-        <th>
         </th>
       </tr>
 
       <% @list_of_courses.each do |course| %>
       <tr>
         <td>
-          <%= @course.id %>
+          <%= course.id %>
         </td>
 
         <td>
-          <%= @course.title %>
+          <%= course.title %>
         </td>
-
-        <td>
-          <%= @course.term_offered %>
-        </td>
-
-        <td>
-          <% department = Department.where({ :id => @course.department_id }).at(0) %>
-          <a href="/departments/<%= department.id %>"><%= department.name %></a>
-        </td>
-
-        <td>
-          <a href="/courses/<%= @course.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
+      <td>
+      <%=course.term_offered%>
+      </td>
+      <td>
+      <%department= Department.where({:id=>course.department_id}).at(0)%>
+      <a href="/departments/<%= department.id %>"><%=department.name %></a>
+      </td>
+      <td>
+      <a href="/courses/<%=course.id%>">
+      Show details
+      </a>
+      </td>
+     </tr>
       <% end %>
     </table>
   </div>

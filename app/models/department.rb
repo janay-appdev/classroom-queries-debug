@@ -8,4 +8,6 @@
 #  updated_at :datetime         not null
 #
 class Department < ApplicationRecord
+  # Course.where({ :department_id => self.id })
+  has_many :courses, class_name: 'Course', foreign_key: 'department_id'
 end
